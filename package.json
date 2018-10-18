@@ -1,0 +1,36 @@
+{
+  "name": "angular-rollbar-sourcemaps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "form-data": "^2.3.3",
+    "read-last-lines": "^1.6.0",
+    "rollbar": "^2.4.7"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/form-data": "^2.2.1",
+    "@types/node": "^10.12.0",
+    "typescript": "^3.1.3"
+  },
+  "scripts": {
+    "postinstall": "cross-env NODE_OPTIONS=--max-old-space-size=8192 npm run build",
+    "build:quick": "npm run update-version-revision && ng build --prod --sourceMap=false --optimization=false",
+    "build": "npm run update-version-revision && ng build --prod",
+    "heroku-postbuild": "npm run upload-maps-to-rollbar",
+    "update-version-revision": "ts-node --project ./tasks/tsconfig.json ./tasks/rollbar/set-versions.ts",
+    "upload-maps-to-rollbar": "ts-node --project ./tasks/tsconfig.json ./tasks/rollbar/upload-sourcemaps.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paustint/angular-rollbar-sourcemaps.git"
+  },
+  "author": "Austin Turner <paustint@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paustint/angular-rollbar-sourcemaps/issues"
+  },
+  "homepage": "https://github.com/paustint/angular-rollbar-sourcemaps#readme"
+}
